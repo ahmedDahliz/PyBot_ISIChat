@@ -1,0 +1,22 @@
+{% extends 'baseLayout.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+    {% trans ' - Chat' %}
+{% endblock %}
+{% block content %}
+    <h1>Hello test</h1>
+     <div id="msgcanva" class="border-info col-12 h-50" >
+        <div class="col-10 border-bottom">
+            <h4><img src="{% static 'img/prof1.jpg' %}" style="border-radius: 50px" height="50px" width="50px" alt="photo">
+            {{ user.get_username }} : <small>Hello there</small> </h4>
+        </div>
+    </div>
+
+{% endblock %}
+
+ {% block CustomJS %}
+    <script>
+        alert('hey');
+    </script>
+            {% endblock %}

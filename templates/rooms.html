@@ -1,0 +1,13 @@
+{% extends 'baseLayout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Rooms' %}
+{% endblock %}
+{% block content %}
+    <h1>Rooms page</h1>
+
+    <a href="{% url 'chats:chatr' slug='room1' %}">Room 1</a>
+    <a href="{% url 'chats:chatr' slug='room2' %}">Room 2</a>
+    <a href="{% url 'chats:chatr' slug='room3' %}">Room 3</a>
+{% endblock %}

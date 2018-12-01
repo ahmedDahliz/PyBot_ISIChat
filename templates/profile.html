@@ -1,0 +1,50 @@
+{% extends 'baseLayout.html' %}
+{% load i18n %}
+{% load staticfiles %}y
+{% block title %}
+    {% trans 'My profile' %}
+{% endblock %}
+{% block content %}
+    <h1 class="font-weight-bold mt-4 m-1 col-12">{{ user.get_username }}'s Profile </h1>
+    <div class="col-12 mt-5">
+        <div class="float-left col-3 text-center p-0 dashboard">
+            <img src="{% static 'img/prof1.jpg' %}" alt="{{ user.get_username }}'s Profile" style="height: 300px" class="img-thumbnail col-8 m-1 p-0">
+            <form action="" class="col-12 m-1">
+                <button class="btn btn-warning">{% trans 'change Photo' %}</button>
+                <button class="btn btn-danger">{% trans 'Delete Photo' %}</button>
+            </form>
+        </div>
+        <div>
+            <table class="table table-responsive w-75 d-table" style="height: 375px">
+                 <tr>
+                    <th>{% trans 'Username' %} : </th>
+                    <td>{{ user.get_username }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans 'Name' %} : </th>
+                    <td>Ahmed</td>
+                </tr>
+                 <tr>
+                    <th>{% trans 'Laste name' %} : </th>
+                    <td>dahliz</td>
+                </tr>
+                <tr>
+                    <th>{% trans 'Years of birth' %} : </th>
+                    <td>11/06/1996</td>
+                </tr>
+                <tr>
+                    <th>{% trans 'Email' %} : </th>
+                    <td>dahliz.ahmed1@gmail.com</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="btn btn-primary">{% trans 'Edit Profile' %}</button>
+                        <button class="btn btn-outline-info">{% trans 'change passeword' %}</button>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

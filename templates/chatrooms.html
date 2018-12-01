@@ -1,0 +1,45 @@
+{% extends 'baseLayout.html' %}
+{% load static %}
+{% load i18n %}
+{% block CustomCSS %}
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+{% endblock %}
+{% block title %}
+    {% trans ' - room ' %}{{ nameroom }}
+{% endblock %}
+{% block content %}
+    <h2>{{ nameroom }}</h2>
+    <div class="container">
+        <div class="col-9 border p-2">
+            <div id="msgcanva" class="border-info col-11 h-50 p-1" >
+                <div class='col-12 border-bottom p-0 row' style="clear: both;min-height: 100px">
+                    <div class="text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important; border-right-color: #95989b  !important;">
+                         <img src="/static/img/prof1.jpg" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ user.get_username }}">
+                                 {% if request.user.is_superuser %}
+                                   <i class="text-danger fas fa-shield-alt"></i>
+                                 {% endif %}
+                            {{ user.get_username }}
+                    </div>
+                    <div class="d-inline col-12 col-md-9 p-1 bg-light">
+                        <h4 class="">
+                           <small> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi asperiores, dolore doloremque excepturi, necessitatibus nihil non odit optio provident quo saepe sapiente, vel. Dolore ipsa laborum quis unde veniam.</small>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <form action="#!" method="post" id="chatFrom" style="clear: both">
+                {% csrf_token %}
+                <input type="hidden" id="username" name="username" value="{{ user.get_username }}">
+                <textarea id="msg" name="message" rows="2" class="input-group-text col-10 d-inline mt-1 mb-1 float-left"></textarea>
+                <input type="submit" class="btn btn-success m-1" style="height: 80px" name="buttons" value="send">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+ {% block CustomJS %}
+
+   <script src="{% static 'javascript/plugin.js' %}"></script>
+
+    {% endblock %}
