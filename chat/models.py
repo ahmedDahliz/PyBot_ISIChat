@@ -1,8 +1,22 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from Profile.models import UserProfil
 # Create your models here.
 
+
+class Rooms(models.Model):
+    idChat = models.AutoField(primary_key=True)
+    nameRoom = models.CharField(max_length=50)
+
+
 class Chat(models.Model):
+    idChat = models.AutoField(primary_key=True)
     message = models.TextField()
-    photo = models.FilePathField()
+    photoPath = models.FilePathField()
+    user = models.ForeignKey(UserProfil, on_delete=models.DO_NOTHING, default=None)
+    room = models.ForeignKey(Rooms, on_delete=models.CASCADE, default=None)
+
+
+
+
 

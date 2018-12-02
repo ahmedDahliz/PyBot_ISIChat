@@ -26,9 +26,9 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('Getlogin/', views.getlogin, name='Getlogin'),
     path('logout/', views.logout, name='logout'),
-    path('profile/<slug:slug>/', views.profile, name='profile'),
     path('rooms/', views.rooms, name='rooms'),
     path('chat/', include('chat.urls')),
+    path('profile/', include('Profile.urls')),
 ]
 
 

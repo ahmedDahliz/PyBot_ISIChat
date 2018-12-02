@@ -32,12 +32,15 @@
               </li>
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' slug=user.get_username %}">{% trans 'Profile' %}</a>
+                <a class="nav-link" href="{% url 'profile:pfle' slug=user.get_username %}">{% trans 'Profile' %}</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
               </li>
               {% else %}
+               <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile:singup' %}">{% trans 'Singup' %}</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">{% trans 'Login' %}</a>
               </li>
