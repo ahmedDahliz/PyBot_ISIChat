@@ -5,11 +5,11 @@ from Profile.models import UserProfil
 
 
 class Rooms(models.Model):
-    idChat = models.AutoField(primary_key=True)
+    idRoom = models.AutoField(primary_key=True)
     nameRoom = models.CharField(max_length=50)
 
 
-class Chat(models.Model):
+class Chats(models.Model):
     idChat = models.AutoField(primary_key=True)
     message = models.TextField()
     photoPath = models.FilePathField()

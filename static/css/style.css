@@ -1,0 +1,9 @@
+.title-page {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+}
+
+#msgcanva {
+    height: 500px;
+    overflow:auto;
+}

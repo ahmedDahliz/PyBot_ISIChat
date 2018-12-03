@@ -23,9 +23,14 @@ class ChatConsumer(AsyncConsumer):
             loadedMsg = json.loads(msgText)
             msg = loadedMsg.get('message')
             user = loadedMsg.get('user')
+            avatar = loadedMsg.get('avatar')
+            issu = loadedMsg.get('us')
+            print(issu)
             response = {
                 'message': msg,
-                'username': user
+                'username': user,
+                'avatar': avatar,
+                'us': issu
             }
             await self.channel_layer.group_send(
                 self.rooms,

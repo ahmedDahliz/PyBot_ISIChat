@@ -9,14 +9,14 @@
     {% trans ' - room ' %}{{ nameroom }}
 {% endblock %}
 {% block content %}
-    <h2>{{ nameroom }}</h2>
+    <h2 class="title-page">{{ nameroom }}</h2>
     <div class="container">
-        <div class="col-9 border p-2">
-            <div id="msgcanva" class="border-info col-11 h-50 p-1" >
+        <div class="col-9 border p-2 mx-auto">
+            <div id="msgcanva" class="border-info col-11 p-1" >
                 <div class='col-12 border-bottom p-0 row' style="clear: both;min-height: 100px">
                     <div class="text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important; border-right-color: #95989b  !important;">
-                         <img src="/static/img/prof1.jpg" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ user.get_username }}">
-                                 {% if request.user.is_superuser %}
+                         <img src="{{ uprofile.photo.url }}" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ user.get_username }}">
+                                 {% if issu %}
                                    <i class="text-danger fas fa-shield-alt"></i>
                                  {% endif %}
                             {{ user.get_username }}
@@ -31,6 +31,8 @@
             <form action="#!" method="post" id="chatFrom" style="clear: both">
                 {% csrf_token %}
                 <input type="hidden" id="username" name="username" value="{{ user.get_username }}">
+                <input type="hidden" id="avatar" name="avatar" value="{{ uprofile.photo.url }}">
+                <input type="hidden" id="us" name="us" value="{{ issu }}">
                 <textarea id="msg" name="message" rows="2" class="input-group-text col-10 d-inline mt-1 mb-1 float-left"></textarea>
                 <input type="submit" class="btn btn-success m-1" style="height: 80px" name="buttons" value="send">
             </form>
@@ -39,7 +41,8 @@
 {% endblock %}
 
  {% block CustomJS %}
-
+     <script>
+     </script>
    <script src="{% static 'javascript/plugin.js' %}"></script>
 
     {% endblock %}

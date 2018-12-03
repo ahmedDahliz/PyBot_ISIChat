@@ -1,49 +1,80 @@
 {% extends 'baseLayout.html' %}
 {% load i18n %}
-{% load staticfiles %}y
+{% load staticfiles %}
+{% load widget_tweaks %}
 {% block title %}
     {% trans 'My profile' %}
 {% endblock %}
+{% block CustomCSS %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+{% endblock %}
 {% block content %}
-    <h1 class="font-weight-bold mt-4 m-1 col-12">{{ user.get_username }}'s Profile </h1>
-    <div class="col-12 mt-5">
-        <div class="float-left col-3 text-center p-0 dashboard">
-            <img src="{% static 'img/prof1.jpg' %}" alt="{{ user.get_username }}'s Profile" style="height: 300px" class="img-thumbnail col-8 m-1 p-0">
-            <form action="" class="col-12 m-1">
-                <button class="btn btn-warning">{% trans 'change Photo' %}</button>
-                <button class="btn btn-danger">{% trans 'Delete Photo' %}</button>
+    <h1 class="font-weight-bold mt-4 m-1 col-12 title-page">{{ user.get_username }}'s Profile </h1>
+    {% if SccMessage %}
+        <div class="alert alert-success" role="alert">
+          <i class="far fa-check-circle"></i> {{ SccMessage }}
+        </div>
+    {% endif %}
+     {% if ErrMessage %}
+        <div class="alert alert-danger" role="alert">
+          <i class="far fa-times-circle"></i> {{ ErrMessage }}
+        </div>
+    {% endif %}
+    <div class="row mt-5">
+            <div class="col-12 col-sm-4 col-md-4 col-lg-3 text-center p-0 dashboard">
+            <img src="{{ uprofile.photo.url }}" alt="{{ user.get_username }}'s Profile" style="height: 300px" class="img-thumbnail col-8 m-1 p-0">
+            <div class="col-12 m-1">
+                <button class="btn btn-warning m-1" onclick="ShowUpload()">{% trans 'change Photo' %}</button>
+                <form action="{% url 'profile:dlimg' %}" method="post" class="p-0 m-0 d-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-danger m-1">{% trans 'Delete Photo' %}</button>
+                </form>
+            </div>
+            <form class="form-control m-2 row" id="formAvatar" action="{% url 'profile:upimg' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ formImg.avatar|add_class:'form-control col-12 d-inline' }}
+                <button type="submit" class="btn btn-success m-2 col-6">{% trans 'Upload' %}</button>
             </form>
         </div>
-        <div>
+        <div class="col-12 col-sm-8 col-md-8 col-lg-9">
             <table class="table table-responsive w-75 d-table" style="height: 375px">
                  <tr>
-                    <th>{% trans 'Username' %} : </th>
+                    <th class="w-25">{% trans 'Username' %} : </th>
                     <td>{{ user.get_username }}</td>
                 </tr>
                 <tr>
                     <th>{% trans 'Name' %} : </th>
-                    <td>Ahmed</td>
+                    <td>{{ uprofile.user.first_name }}</td>
                 </tr>
                  <tr>
                     <th>{% trans 'Laste name' %} : </th>
-                    <td>dahliz</td>
+                    <td>{{ uprofile.user.last_name }}</td>
                 </tr>
                 <tr>
                     <th>{% trans 'Gender' %} : </th>
-                    <td>Male</td>
+                    <td>
+                        {% if uprofile.gender == 'M' %}
+                            {% trans 'Male' %}
+                        {% else %}
+                            {% trans 'Female' %}
+                        {% endif %}
+
+                    </td>
                 </tr>
                 <tr>
-                    <th>{% trans 'Years of birth' %} : </th>
-                    <td>11/06/1996</td>
+                    <th>{% trans 'Date of birth' %} : </th>
+                    <td>{{ uprofile.DateBirth|date:'b d, Y' }}</td>
                 </tr>
                 <tr>
                     <th>{% trans 'Email' %} : </th>
-                    <td>dahliz.ahmed1@gmail.com</td>
+                    <td>{{ uprofile.user.email }}</td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button class="btn btn-primary">{% trans 'Edit Profile' %}</button>
-                        <button class="btn btn-outline-info">{% trans 'change passeword' %}</button>
+                        <button class="btn btn-dark m-1" data-toggle="modal" data-target="#myModal">{% trans 'Edit Profile' %}</button>
+                        <button class="btn btn-outline-info m-1" data-toggle="modal" data-target="#myModal2">{% trans 'change passeword' %}</button>
                     </td>
 
                 </tr>
@@ -51,4 +82,141 @@
         </div>
     </div>
 
+<!-- ---------------------------------------------------------------------------------------------------------->
+<!-- -----------------------------------------UPDATE PROFILE -------------------------------------------------->
+<!-- Modal content-->
+
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+<div class="modal-content" style="background: {{ bgS }}">
+<div class="modal-header">
+
+<h4 class="modal-title">{% trans 'Edit profile' %}</h4>
+<button type="button" class="close" data-dismiss="modal">×</button>
+</div>
+<div class="modal-body">
+
+        <form role="form" method="post" id="reused_form" action="{% url 'profile:updp' %}" >
+            {% csrf_token %}
+        <div class="form-group">
+            <label for="username">{% trans 'Username' %}:</label>
+            {% render_field formsgup.username value=uprofile.user.username class='form-control' %}
+        </div>
+        <div class="form-group">
+            <label for="first_name">
+                {% trans 'First name' %}</label>
+            {% render_field formsgup.first_name value=uprofile.user.first_name class='form-control' %}
+        </div>
+         <div class="form-group">
+            <label for="last_name">
+                {% trans 'Laste name' %}</label>
+           {% render_field formsgup.last_name value=uprofile.user.last_name class='form-control' %}
+        </div>
+         <div class="form-group">
+            <label for="gender">
+                {% trans 'Gender' %}</label>
+             <select id="id_gender" name="gender" class="form-control" required>
+            {% for value, key in formsCus.gender.field.choices %}
+                <option value="{{ value }}" {% if uprofile.gender == value %} selected="selected" {% endif %}>
+                    {{ key }}
+                </option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DateBirth">
+                {% trans 'Date of birth' %}</label>
+           {% render_field formsCus.DateBirth value=dateb  class='form-control' %}
+        </div>
+         <div class="form-group">
+            <label for="email">
+                {% trans 'E-mail' %}</label>
+           {% render_field formsgup.email value=uprofile.user.email class='form-control' %}
+        </div>
+        <button type="submit" class="btn btn-lg btn-success btn-block" id="btnContactUs">{% trans 'Update profile' %}</button>
+
+    </form>
+    <div id="success_message" style="width:100%; height:100%; display:none; ">
+        <h3>Sent your message successfully!</h3>
+    </div>
+    <div id="error_message"
+    style="width:100%; height:100%; display:none; ">
+        <h3>Error</h3>
+        Sorry there was an error sending your form.
+
+    </div>
+</div>
+
+</div>
+
+ </div>
+</div>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------->
+<!-- -----------------------------------------UPDATE PASSWORD -------------------------------------------------->
+<!-- Modal content-->
+
+    <div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+<div class="modal-content" style="background: {{ bgS }}">
+<div class="modal-header">
+
+<h4 class="modal-title">{% trans 'Edit password' %}</h4>
+<button type="button" class="close" data-dismiss="modal">×</button>
+</div>
+<div class="modal-body">
+
+        <form role="form" method="post" id="reused_form" action="{% url 'profile:pfle' slug=user.get_username %}" >
+            {% csrf_token %}
+            <p class="text-danger">{{ ErrMessage }}</p>
+        <div class="form-group">
+            <label for="username">{% trans 'Old password' %}:</label>
+            <input type="password" name="OldPass" class="form-control" required="" id="id_OldPass">
+        </div>
+        <div class="form-group">
+            <label for="first_name">
+                {% trans 'New Password' %}</label>
+            {% render_field formsgup.password1 class='form-control' %}
+        </div>
+         <div class="form-group">
+            <label for="first_name">
+                {% trans 'Password confirmation' %}</label>
+            {% render_field formsgup.password2 class='form-control' %}
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-success btn-block" name="UpPass" value="Update password" id="btnContactUs">{% trans 'Update password' %}</button>
+
+    </form>
+    <div id="success_message" style="width:100%; height:100%; display:none; ">
+        <h3>Sent your message successfully!</h3>
+    </div>
+    <div id="error_message"
+    style="width:100%; height:100%; display:none; ">
+        <h3>Error</h3>
+        Sorry there was an error sending your form.
+
+    </div>
+</div>
+
+</div>
+
+ </div>
+</div>
+{% endblock %}
+{% block CustomJS %}
+    <script src="{% static 'javascript/form.js' %}"></script>
+    <script>
+     $('#formAvatar').hide();
+        function ShowUpload(){
+            if ($('#formAvatar').is(":hidden")) {
+                $('#formAvatar').show();
+            }else {
+                $('#formAvatar').hide();
+            }
+
+        }
+    </script>
 {% endblock %}
