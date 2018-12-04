@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from Profile.models import *
 
 
+
 @login_required(redirect_field_name="login")
 def chatroom(request, slug):
     nameroom = slug

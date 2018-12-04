@@ -24,7 +24,7 @@
     {% endif %}
     <div class="row mt-5">
             <div class="col-12 col-sm-4 col-md-4 col-lg-3 text-center p-0 dashboard">
-            <img src="{{ uprofile.photo.url }}" alt="{{ user.get_username }}'s Profile" style="height: 300px" class="img-thumbnail col-8 m-1 p-0">
+            <img src="{{ uprofile.photo.url }}" alt="{{ user.get_username }}'s Profile" style="height: 300px" class="img-thumbnail col-12 col-sm-12 col-md-12 col-lg-8 m-1 p-0">
             <div class="col-12 m-1">
                 <button class="btn btn-warning m-1" onclick="ShowUpload()">{% trans 'change Photo' %}</button>
                 <form action="{% url 'profile:dlimg' %}" method="post" class="p-0 m-0 d-inline">
@@ -35,7 +35,7 @@
             <form class="form-control m-2 row" id="formAvatar" action="{% url 'profile:upimg' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ formImg.avatar|add_class:'form-control col-12 d-inline' }}
-                <button type="submit" class="btn btn-success m-2 col-6">{% trans 'Upload' %}</button>
+                <button type="submit" class="btn btn-success m-2 col-6">{% trans 'Update avatar' %}</button>
             </form>
         </div>
         <div class="col-12 col-sm-8 col-md-8 col-lg-9">
