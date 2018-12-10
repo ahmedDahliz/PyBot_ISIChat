@@ -99,7 +99,7 @@ def DeleteAvatare(request):
     if request.method == 'POST':
         uprf = UserProfil.objects.get(user=request.user)
         if uprf.gender == 'M':
-            uprf.photo = 'DefAvtF.png'
+            uprf.photo = 'DefAvtM.png'
         else:
             uprf.photo = 'DefAvtF.png'
         uprf.save()

@@ -3,9 +3,9 @@ var locationn = "ws://"+window.location.host + window.location.pathname;
 var chatForm = $("#chatFrom");
 var msg = $("#msg");
 var msgcanva = $("#msgcanva");
+var psnC = $("#psnC");
 var Socket = new WebSocket(locationn);
 var scrolled = false;
-var spannbrp = $('#nbrP');
     function updateScroll(){
         var element = document.getElementById("msgcanva");
         element.scrollTop = element.scrollHeight;
@@ -14,7 +14,7 @@ var spannbrp = $('#nbrP');
     $("#msgcanva").on('scroll', function(){
         scrolled=true;
     });
-
+updateScroll();
 Socket.onmessage = function(e) {
     //console.log('message', e);
     var dataMessage = JSON.parse(e.data);
@@ -22,7 +22,7 @@ Socket.onmessage = function(e) {
     if (dataMessage.us === "True") {
         su = '<i class="text-danger fas fa-shield-alt"></i>';
     }
-    console.log(dataMessage.nbrP);
+    console.log(dataMessage);
 
     if (dataMessage.nbrP == null){
         msgcanva.append(" <div class='col-12 border-bottom p-0 row' style='clear: both;min-height: 100px'>" +
@@ -30,7 +30,17 @@ Socket.onmessage = function(e) {
             "           " + su + ' ' + dataMessage.username + "</div> <div class='d-inline col-9 p-1'> <h4 class='d-inline'><small>" + dataMessage.message + "</small> </h4></div>" +
             "        </div>");
         updateScroll();
-    }else document.getElementById('nbrP').innerText = dataMessage.nbrP;
+    }else{
+        psnC.children().not('#dvNbrP').remove();
+        Object.keys(dataMessage.PCon).forEach(function(key){
+             psnC.append("<div class='col-md-12 col-12 p-1 border-bottom'>" +
+                "         <img src='"+dataMessage.PCon[key]+"' class='m-1' style='border-radius: 10px' height='40px' width='40px' alt='photo_"+key+"'>" +
+                "           " +key +
+                "        </div>");
+       });
+      document.getElementById('nbrP').innerText = dataMessage.nbrP;
+
+    }
 };
 
 Socket.onopen= function(e){
@@ -42,14 +52,17 @@ Socket.onopen= function(e){
     chatForm.submit(function (evt) {
         evt.preventDefault();
         var msgtext = msg.val();
-        var data = {
-            'message': msgtext,
-            'user': $("#username").val(),
-            'avatar': $("#avatar").val(),
-            'us': $('#us').val()
-        };
-        msg.val('');
-        Socket.send(JSON.stringify(data));
+        if (msgtext != ""){
+            var data = {
+                'message': msgtext,
+                'user': $("#username").val(),
+                'avatar': $("#avatar").val(),
+                'us': $('#us').val()
+            };
+             msg.val('');
+             Socket.send(JSON.stringify(data));
+        }
+
     });
 };
 

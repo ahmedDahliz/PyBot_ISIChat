@@ -29,7 +29,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('Getlogin/', views.getlogin, name='Getlogin'),
     path('logout/', views.logout, name='logout'),
-    path('rooms/', views.rooms, name='rooms'),
     path('chat/', include('chat.urls')),
     path('profile/', include('Profile.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

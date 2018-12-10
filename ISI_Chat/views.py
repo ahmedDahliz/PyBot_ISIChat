@@ -28,7 +28,3 @@ def getlogin(request):
 def logout(request):
     auth_logout(request)
     return redirect('home')
-
-
-def rooms(request):
-    return render(request, 'rooms.html')
