@@ -5,8 +5,7 @@ from .models import *
 from .ConnectedPerson import ConnectedPerson
 
 
-
-@login_required(redirect_field_name="login")
+@login_required(login_url="login")
 def chatroom(request, slug):
     nameroom = slug
     user = request.user
@@ -19,4 +18,12 @@ def chatroom(request, slug):
 
 def rooms(request):
     rooms = Rooms.objects.all()
+    dictP = ConnectedPerson.listRooms
+    dataP = {}
+    for name in rooms:
+        if name.nameRoom in dictP.keys():
+            dataP[name.nameRoom] = dictP[name.nameRoom]['NumberOfPerson']
+        else:
+            dataP[name.nameRoom] = 0
+
     return render(request, 'rooms.html', locals())

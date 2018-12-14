@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
 {% endblock %}
 {% block content %}
-    <h1 class="font-weight-bold mt-4 m-1 col-12 title-page">{{ user.get_username }}'s Profile </h1>
+    <h1 class="font-weight-bold col-12 title-page text-dark pt-2">{{ user.get_username }}'s Profile </h1>
     {% if SccMessage %}
         <div class="alert alert-success" role="alert">
           <i class="far fa-check-circle"></i> {{ SccMessage }}

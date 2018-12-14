@@ -24,7 +24,7 @@ app_name = ''
 admin.site.site_header = 'ISI Chat Administartion'
 admin.site.site_title = 'ISI Chat Administartion'
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', views.home, name='home'),
     path('login/', views.login, name='login'),
     path('Getlogin/', views.getlogin, name='Getlogin'),

@@ -15,6 +15,8 @@ var scrolled = false;
         scrolled=true;
     });
 updateScroll();
+
+
 Socket.onmessage = function(e) {
     //console.log('message', e);
     var dataMessage = JSON.parse(e.data);

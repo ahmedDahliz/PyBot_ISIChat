@@ -1,13 +1,11 @@
 {% extends 'baseLayout.html' %}
 {% load i18n %}
 {% load static %}
-
 {% block title %}
     {% trans 'Rooms' %}
 {% endblock %}
-
 {% block content %}
-    <h1 class="title-page">Rooms page</h1>
+    <h1 class="title-page text-dark m-2"> <i class="fas fa-door-open"></i> {% trans 'Rooms' %}</h1>
     <div class="container mt-5 p-0">
         <div class="row">
             {% for room in rooms %}
@@ -18,14 +16,15 @@
                                <span class="">{{ room }}</span>
                                <span class="float-right">
                                    <i class="fas fa-users"></i>
+                                    {% for key, value in dataP.items %}
+                                            {% ifequal key room.nameRoom %}
+                                               {{value}}
+                                            {% endifequal %}
+                                   {% endfor %}
                                </span>
-
-
                             </div>
                        </a>
-
                     </div>
-
             {% endfor %}
         </div>
     </div>

@@ -38,7 +38,6 @@ class ChatConsumer(AsyncConsumer):
             else:
                 msg = loadedMsg.get('message')
                 user = loadedMsg.get('user')
-
                 avatar = loadedMsg.get('avatar')
                 issu = loadedMsg.get('us')
                 objroom = Rooms.objects.get(nameRoom=self.room)
@@ -69,7 +68,6 @@ class ChatConsumer(AsyncConsumer):
         print("disconnect", event)
         if self.prf.user.username in ConnectedPerson.listRooms[self.room]['Users'].keys():
             ConnectedPerson.deletePerson(self.room, self.prf.user.username)
-        print(ConnectedPerson.NumberOfPerson, ConnectedPerson.ListOfPerson)
         response = {
             'nbrP': ConnectedPerson.listRooms[self.room]['NumberOfPerson'],
             'PCon': ConnectedPerson.listRooms[self.room]['Users']

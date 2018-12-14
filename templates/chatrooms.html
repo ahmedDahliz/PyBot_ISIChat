@@ -3,9 +3,6 @@
 {% load i18n %}
 {% block CustomCSS %}
     <style>
-        body, html {height: 100% !important;
-
-        }
         main {
               background: url({{ room.photo.url }}) no-repeat center center fixed;
               -webkit-background-size: cover;
@@ -13,11 +10,15 @@
               -o-background-size: cover;
               background-size: cover;
             height: 100%;
-             padding-top: 10px;
+
         }
         .opct {
             opacity: .9;
         }
+        main {
+            opacity: .9;
+        }
+
         h1.title-page, #cont {
             border-radius: 5px;
             box-shadow: 0 0.5rem 1rem rgba(0, 12, 0, .7) !important;
@@ -28,23 +29,23 @@
     {% trans ' - room ' %}{{ nameroom }}
 {% endblock %}
 {% block content %}
-    <h1 class="title-page bg-light p-2 opct">{{ nameroom }} <i class="fas fa-comments"></i></h1>
-
+    <h1 class="title-page bg-light text-dark p-2 opct"> <i class="fas fa-comments"></i> {{ nameroom }}</h1>
+    <br>
     <div id="cont" class="container-fluid">
         <div class="row bg-light opct rounded mb-5">
-            <div class="col-7 m-2 border">
+            <div class="col-12 col-sm-12 col-md-7 col-lg-8 m-2 border">
                 <div id="msgcanva" class="border-info col-12 col-md-12 p-1" >
                     <div class='col-12 border-bottom p-0 row' style="clear: both;min-height: 100px">
-                        <div class="text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important; border-right-color: #95989b  !important;">
-                             <img src="{{ uprofile.photo.url }}" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ user.get_username }}">
+                        <div class="isichatColorR text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important; border-right-color: #95989b  !important;">
+                             <img src="/media/website/IsiChatLogo.png" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ user.get_username }}">
                                      {% if issu %}
-                                       <i class="text-danger fas fa-shield-alt"></i>
+
                                      {% endif %}
-                                {{ user.get_username }}
+                                Isi Chat
                         </div>
                         <div class="d-inline col-12 col-md-9 p-1 bg-light">
                             <h4 class="">
-                               <small> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi asperiores, dolore doloremque excepturi, necessitatibus nihil non odit optio provident quo saepe sapiente, vel. Dolore ipsa laborum quis unde veniam.</small>
+                               <small>{% trans 'Welcom to '%}<span class="isichatColorR nameroom"> {{ nameroom }} </span> {% trans '  room chat, please be aceptable and understable, and remember with our atitude we raise, Enjot to chat' %} .</small>
                             </h4>
                         </div>
                     </div>
@@ -71,13 +72,13 @@
                     <input type="hidden" id="username" name="username" value="{{ user.get_username }}">
                     <input type="hidden" id="avatar" name="avatar" value="{{ uprofile.photo.url }}">
                     <input type="hidden" id="us" name="us" value="{{ issu }}">
-                    <textarea id="msg" name="message" rows="2" class="input-group-text col-10 d-inline mt-1 mb-1 float-left"></textarea>
-                    <input type="submit" class="btn btn-success m-1" style="height: 80px" name="buttons" value="send">
+                    <textarea id="msg" name="message" rows="3" class="input-group-text col-8 col-md-9 col-sm-9 col-lg-10 d-inline mt-1 mb-1 float-left"></textarea>
+                    <input type="submit" class="btn btn-success m-1" style="height: 85px" name="buttons" value="send">
                 </form>
             </div>
-            <div id="psnC" class="col-4 m-2 border">
+            <div id="psnC" class="col-12 col-sm-12 col-md-4 col-lg-3 m-2 border">
                  <div id="dvNbrP" class="col-md-12 col-12 p-1 border-bottom border-dark">
-                    <h6>{% trans 'Number of person connected : ' %}<span id="nbrP"></span></h6>
+                    <h6><span id="nbrP"></span> {% trans 'online ' %}</h6>
                 </div>
             </div>
         </div>
