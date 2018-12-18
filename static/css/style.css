@@ -8,6 +8,9 @@
     font-family: Brush Script Std, Brush Script MT, cursive;
     font-weight: bold;
 }
+
+
+
 .title-page {
     font-family: Brush Script Std, Brush Script MT, cursive;
     color : rgba(255, 255, 255, 0.75);
@@ -15,6 +18,7 @@
 }
 .bg-isi {
     background-color: #810c0c !important;
+
 }
 .space {
     height: 56px;
@@ -30,4 +34,8 @@
 
 .carousel-item img {
 
+}
+
+footer {
+    height: 75px;
 }

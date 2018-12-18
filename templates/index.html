@@ -5,35 +5,40 @@
 
     </style>
 {% endblock %}
+
+{% block descretion %}
+    <p class="text-light text-center" > Let's Chat a Subject</p>
+{% endblock %}
 {% block content %}
+ <div class="p-5 text-center">
+    <h1>{% trans 'Welcom to our chat room' %}</h1>
+    <p class="font-weight-bold pt-2">{% trans "To have an cultured knowledge you can read, watch or just lisent to your favorit and what intrest you of subject, that's good and very productife. So what if you add to this ways chating and descasing this subject ? well you will exstends your knowledg not only in your cultured informations but also in how others think and see thos subjects and what they know, so here you can share and learn or like one of my friends sayed share is learn." %}</p>
+    <p class="font-weight-bold">{% trans "Sing up chose a room and start to chat a subject" %}</p>
+ </div>
  <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    {% for n in nbr %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{ n }}"></li>
+    {% endfor %}
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="/media/Rooms/avatarBooks.jpg" width="800px" height="500px" alt="First slide">
+      <img class="d-block w-100" src="/media/website/IsiChatCarousl0.png" width="1500px" height="500px" alt="First slide">
         <div class="carousel-caption d-none d-md-block">
-            <h5>...</h5>
+            <h1 class="text-black-50 nameroom">Isi Chat</h1>
             <p>...</p>
           </div>
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="/media/Rooms/ThumbEducation.png" width="800px" height="500px" alt="Second slide">
-        <div class="carousel-caption d-none d-md-block">
-    <h5>...</h5>
-    <p>...</p>
-  </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="/media/Rooms/ThumbMS_ISI.png" width="800px" height="500px" alt="Third slide">
-        <div class="carousel-caption d-none d-md-block">
-    <h5>...</h5>
-    <p>...</p>
-  </div>
-    </div>
+      {% for room in rooms %}
+       <div class="carousel-item">
+          <img class="d-block w-100" src="{{ room.photo.url }}" width="1500px" height="500px" alt="slide_{{ room }}">
+            <div class="carousel-caption d-none d-md-block">
+            <h1 class="text-black-50 nameroom">{{ room }}</h1>
+            <p>...</p>
+          </div>
+        </div>
+      {% endfor %}
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

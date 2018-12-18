@@ -10,7 +10,7 @@
         <div class="row">
             {% for room in rooms %}
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-2">
-                       <a class="font-weight-bold" href="{% url 'chats:chatr' slug=room %}">
+                       <a class="font-weight-bold" href="{% url 'chats:chatr' slug=room %}#roomtitle">
                            <div class="btn-outline-info text-dark p-2 border border-info">
                                <img src="{{ room.photo.url }}" width="98%" height="200px" alt="">
                                <span class="">{{ room }}</span>

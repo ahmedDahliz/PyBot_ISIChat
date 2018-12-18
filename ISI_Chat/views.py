@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from chat.models import Rooms
 from django.contrib.auth import authenticate, logout as auth_logout, login as auth_login
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import get_language, gettext as _
+from django.utils.translation import gettext as _
 
 
 def home(request):
-    return render(request, 'index.html')
+    rooms = Rooms.objects.all()
+    nbr = range(len(rooms))
+    return render(request, 'index.html', locals())
 
 
 def login(request):
