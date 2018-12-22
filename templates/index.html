@@ -2,20 +2,33 @@
 {% load i18n %}
 {% block CustomCSS %}
     <style>
-
+        main {
+            background-color: #343334 !important;
+            color: #efdab9 !important;
+        }
+        .imgchat {
+            background: none;
+        }
     </style>
 {% endblock %}
 
 {% block descretion %}
-    <p class="text-light text-center" > Let's Chat a Subject</p>
+
+
+            <p class="text-light text-center" > Let's Chat a Subject</p>
+
 {% endblock %}
 {% block content %}
- <div class="p-5 text-center">
+      <video autoplay muted loop id="Videochat">
+                  <source src="/media/website/videochating.mp4" type="video/mp4">
+                </video>
+
+ <div class="p-3 text-center intro">
     <h1>{% trans 'Welcom to our chat room' %}</h1>
-    <p class="font-weight-bold pt-2">{% trans "To have an cultured knowledge you can read, watch or just lisent to your favorit and what intrest you of subject, that's good and very productife. So what if you add to this ways chating and descasing this subject ? well you will exstends your knowledg not only in your cultured informations but also in how others think and see thos subjects and what they know, so here you can share and learn or like one of my friends sayed share is learn." %}</p>
-    <p class="font-weight-bold">{% trans "Sing up chose a room and start to chat a subject" %}</p>
+    <p class="pt-2">{% trans "To have a cultured knowledge you can read, watch or just listen to your favorite and what interest  you of subjects, that's good and very productive. So what if you add in this ways chatting and discussing this subject ? Well, you will extend your knowledge not only in your cultured information, but also in how others think and see thos subjects and what they know, so here you can share and learn or like one of my friends said share is learn." %}</p>
+    <p class="">{% trans "Sing up, choose a room, and start to chatting a subject" %}</p>
  </div>
- <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
+ <div id="carouselExampleIndicators" class="carousel slide m-auto" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     {% for n in nbr %}

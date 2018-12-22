@@ -50,17 +50,23 @@ Socket.onopen= function(e){
     var nbrpc = {
       'nbrPc' : '1'
     };
+     $('#msg').keypress(function (e) {
+        if(e.which == 13) {
+            chatForm.submit();
+        }
+
+    });
     Socket.send(JSON.stringify(nbrpc));
     chatForm.submit(function (evt) {
         evt.preventDefault();
         var msgtext = msg.val();
         if (msgtext != ""){
             var data = {
-                'message': msgtext,
-                'user': $("#username").val(),
-                'avatar': $("#avatar").val(),
-                'us': $('#us').val()
-            };
+        'message': msgtext,
+        'user': $("#username").val(),
+        'avatar': $("#avatar").val(),
+        'us': $('#us').val()
+    };
              msg.val('');
              Socket.send(JSON.stringify(data));
         }

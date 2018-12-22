@@ -18,7 +18,7 @@
 }
 .bg-isi {
     background-color: #810c0c !important;
-
+    opacity: .7;
 }
 .space {
     height: 56px;
@@ -32,10 +32,35 @@
     overflow:auto;
 }
 
-.carousel-item img {
-
+#carouselExampleIndicators {
+    width: 97%;
+}
+.intro {
+    color : #c08484 !important;
 }
 
+#Videochat {
+position: fixed;
+right: 0;
+bottom: 350px;
+min-width: 100%;
+min-height: 100%;
+z-index: -1;
+}
+#Imageochat {
+position: fixed;
+right: 0;
+bottom: 430px;
+min-width: 100%;
+min-height: 100%;
+overflow: hidden;
+z-index: -1;
+}
+.imgchat {
+     background: url("/media/website/bg_chat.PNG") no-repeat;
+     background-size: 100% 200px;
+
+}
 footer {
     height: 75px;
 }

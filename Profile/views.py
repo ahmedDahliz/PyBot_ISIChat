@@ -41,7 +41,6 @@ def getsingup(request):
 def profile(request, slug):
     SLUG = slug
     user = request.user
-    print(user)
     uprofile = UserProfil.objects.get(user=user)
     formsgup = forms.RegistrationForm()
     formsCus = forms.CreateProfile()
@@ -53,7 +52,6 @@ def profile(request, slug):
     else:
         bgS = 'rgba(16, 87, 140, 0.88)'
     if request.method == 'POST':
-        print(request.POST)
         if request.POST['UpPass']:
             u = authenticate(username=uprofile.user.username, password=request.POST['OldPass'])
             if u:

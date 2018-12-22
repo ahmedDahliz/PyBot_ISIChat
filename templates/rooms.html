@@ -4,7 +4,16 @@
 {% block title %}
     {% trans 'Rooms' %}
 {% endblock %}
+{% block CustomJS %}
+    <style>
+        main {
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+{% endblock %}
 {% block content %}
+
     <h1 class="title-page text-dark m-2"> <i class="fas fa-door-open"></i> {% trans 'Rooms' %}</h1>
     <div class="container mt-5 p-0">
         <div class="row">
