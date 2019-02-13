@@ -14,7 +14,6 @@ class ConnectedPerson:
             del ConnectedPerson.listRooms[room]['Users']['']
         ConnectedPerson.listRooms[room]['NumberOfPerson'] += 1
         ConnectedPerson.listRooms[room]['Users'][username] = urlphoto
-        print('hiiiii', ConnectedPerson.listRooms)
 
     @staticmethod
     def deletePerson(room, username):

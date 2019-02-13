@@ -11,10 +11,12 @@ from . import forms
 def singup(request):
     formsgup = forms.RegistrationForm()
     formsCus = forms.CreateProfile()
+    activeS = "active"
     return render(request, 'Singup.html', locals())
 
 
 def getsingup(request):
+
     if request.method == 'POST':
         userform = forms.RegistrationForm(request.POST)
         profileform = forms.CreateProfile(request.POST)
@@ -29,11 +31,13 @@ def getsingup(request):
             pfile.save()
             user = authenticate(request, username=request.POST['username'], password=request.POST['password1'])
             auth_login(request, user)
+            activeI = "active"
             return render(request, 'index.html')
         else:
             formsgup = forms.RegistrationForm()
             formsCus = forms.CreateProfile()
-            ErrMessage = _('Votre login ou mot de passe est incorrect')
+            ErrMessage = _('Some of data is incorrect')
+            activeS = "active"
             return render(request, 'Singup.html', locals())
 
 
@@ -64,6 +68,7 @@ def profile(request, slug):
                     ErrMessage = 'The passwords are not the same'
             else:
                 ErrMessage = 'Old password is incorrect'
+    activeP = "active"
     return render(request, 'profile.html', locals())
 
 

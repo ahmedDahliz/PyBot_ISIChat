@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block CustomCSS %}
+    <link rel="stylesheet" href="{% static 'css/fileInput.css' %}">
     <style>
         main {
               background: url({{ room.photo.url }}) no-repeat center center fixed;
@@ -23,7 +24,42 @@
         * {
             border-color: #95989b !important;
         }
+        .card.light-version .file-field input[type=text] {
+            border-bottom: 1px solid #fff; }
+        .card.light-version .file-field input[type=text]::-webkit-input-placeholder {
+            color: #fff;
+            font-weight: 300; }
+        .card.light-version .file-field input[type=text]::-moz-placeholder {
+            color: #fff;
+            font-weight: 300; }
+        .card.light-version .file-field input[type=text]:-ms-input-placeholder {
+            color: #fff;
+            font-weight: 300; }
+        .card.light-version .file-field input[type=text]::placeholder {
+            color: #fff;
+            font-weight: 300; }
+        .card.light-version .file-field input[type=text]:focus:not([readonly]) {
+            -webkit-box-shadow: 0 1px 0 0 #fff;
+            box-shadow: 0 1px 0 0 #fff; }
+        .card.light-version .file-field input[type=text].valid {
+            border-bottom: 1px solid #00c851;
+            -webkit-box-shadow: 0 1px 0 0 #00c851;
+            box-shadow: 0 1px 0 0 #00c851; }
+        .card.light-version .file-field input[type=text]:focus.valid {
+            border-bottom: 1px solid #00c851;
+            -webkit-box-shadow: 0 1px 0 0 #00c851;
+            box-shadow: 0 1px 0 0 #00c851; }
+        .clickable {
+            cursor: pointer;
+        }
+        .clickable:hover {
+            color: #b00918;
+        }
+        .alert {
+            display: none;
+        }
     </style>
+
 {% endblock %}
 {% block title %}
     {% trans ' - room ' %}{{ nameroom }}
@@ -60,21 +96,34 @@
                                 {{ chat.user.user.username }}
                         </div>
                         <div class="d-inline col-12 col-md-9 p-1 bg-light">
-                            <h4 class="">
-                               <small>{{ chat.message }}</small>
-                            </h4>
+                            <h6 class="">
+                               {{ chat.message|safe }}
+                            </h6>
                         </div>
                     </div>
                     {% endfor %}
 
                 </div>
-                <form action="#!" method="post" id="chatFrom" style="clear: both">
+                <form action="#!" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" method="post" id="chatFrom" enctype="multipart/form-data" style="clear: both">
                     {% csrf_token %}
                     <input type="hidden" id="username" name="username" value="{{ user.get_username }}">
                     <input type="hidden" id="avatar" name="avatar" value="{{ uprofile.photo.url }}">
                     <input type="hidden" id="us" name="us" value="{{ issu }}">
-                    <textarea id="msg" name="message" rows="3" class="input-group-text col-8 col-md-9 col-sm-9 col-lg-10 d-inline mt-1 mb-1 float-left"></textarea>
-                    <input type="submit" class="btn btn-success m-1" style="height: 85px" name="buttons" value="send">
+                    <input type="hidden" id="room" name="room" value="{{ nameroom }}">
+                    <div class="row">
+                        <textarea id="msg" name="message" class="input-group-text col-12 col-sm-12 col-md-10 col-lg-10 col-xl-8 float-left m-1"></textarea>
+                        <div class="row col-6 col-sm-6 col-md-2 col-lg-2 col-lg-2 m-1 p-1">
+                            <input type="submit" class="btn btn-success col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 m-1" style="height: 50px" name="buttons" value="send">
+                            <input type="file" id="fileimg" name="image" />
+                            <label for="fileimg" class="btn btn-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 m-1" style="height: 50px"><span><i class="fas fa-image"></i></span></label>
+                        </div>
+                        <div class="alert alert-danger m-1 p-1 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" role="alert">
+                             <span class="p-1"><i class="fas fa-exclamation-circle"></i></span>
+                            <span class="p-1"> {% trans 'Only this formats of image are supported :' %} .jpg, .png, .jpeg, .gif</span>
+                            <span class="text-right float-right p-1 clickable"><i class="fas fa-times"></i></span>
+
+                        </div>
+                    </div>
                 </form>
             </div>
             <div id="psnC" class="col-12 col-sm-12 col-md-4 col-lg-3 m-2 border">
@@ -88,6 +137,13 @@
 
  {% block CustomJS %}
      <script>
+         $('.alert').hide();
+         /*$(document).ready(function() {
+                $("#msg").emojioneArea();
+                $(".clickable").on('click', function (evt){
+                    $(this).closest('.alert').hide();
+                })
+         });*/
      </script>
    <script src="{% static 'javascript/plugin.js' %}"></script>
 

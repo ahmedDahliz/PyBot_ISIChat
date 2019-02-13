@@ -9,11 +9,13 @@ from django.utils.translation import gettext as _
 def home(request):
     rooms = Rooms.objects.all()
     nbr = range(len(rooms))
+    activeI = "active"
     return render(request, 'index.html', locals())
 
 
 def login(request):
-    return render(request, 'login.html')
+    activeL = "active"
+    return render(request, 'login.html', locals())
 
 
 def getlogin(request):
@@ -24,7 +26,9 @@ def getlogin(request):
         auth_login(request, user)
         return redirect('home')
     else:
-        return render(request, 'Login.html', {'ErrMessage': _('Votre login ou mot de passe est incorrect')})
+        activeL = "active"
+        ErrMessage = _('Your login or paswword is incorrect')
+        return render(request, 'Login.html',locals())
 
 
 def logout(request):

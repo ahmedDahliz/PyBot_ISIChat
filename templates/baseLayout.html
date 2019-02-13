@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/emoji/emojionearea.min.css' %}">
     {% block CustomCSS %}
     {% endblock %}
 </head>
@@ -26,14 +27,14 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+              <li class="nav-item {{ activeI }}">
                 <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %} <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ activeR }}">
                 <a class="nav-link" href="{% url 'chats:rooms' %}">{% trans 'Rooms' %}</a>
               </li>
               {% if user.is_authenticated %}
-              <li class="nav-item">
+              <li class="nav-item {{ activeP }}">
                 <a class="nav-link" href="{% url 'profile:pfle' slug=user.get_username %}">{% trans 'Profile' %}</a>
               </li>
                 {% if user.is_staff %}
@@ -45,10 +46,10 @@
                 <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
               </li>
               {% else %}
-               <li class="nav-item">
+               <li class="nav-item {{ activeS }}">
                 <a class="nav-link" href="{% url 'profile:singup' %}">{% trans 'Singup' %}</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item {{ activeL }}">
                 <a class="nav-link" href="{% url 'login' %}">{% trans 'Login' %}</a>
               </li>
              {% endif %}
@@ -81,10 +82,12 @@
     {% endblock %}
     </main>
     <footer class="w-100 bg-dark">
-            <h5 class="text-light text-center pt-4">ISI Caht | {% trans 'All right reserved' %}</h5>
+            <h5 class="text-light text-center pt-4">ISI Chat | {% trans 'All right reserved' %}</h5>
     </footer>
-    <script src="{% static 'javascript/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'javascript/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/vue.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/emoji/emojionearea.js' %}"></script>
     {% block CustomJS %}
     {% endblock %}
 </body>

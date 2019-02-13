@@ -5,5 +5,6 @@ app_name = 'chats'
 urlpatterns = [
     path('rooms/', views.rooms, name='rooms'),
     path('<slug:slug>', views.chatroom, name='chatr'),
+    path('sendImage/', views.uploadImageFromRoom, name='chatr'),
 
 ]
