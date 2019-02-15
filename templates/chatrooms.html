@@ -2,6 +2,7 @@
 {% load static %}
 {% load i18n %}
 {% block CustomCSS %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
     <link rel="stylesheet" href="{% static 'css/fileInput.css' %}">
     <style>
         main {
@@ -55,7 +56,7 @@
         .clickable:hover {
             color: #b00918;
         }
-        .alert {
+        .alert, #container_modal_image {
             display: none;
         }
     </style>
@@ -73,7 +74,7 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-8 m-2 border">
                 <div id="msgcanva" class="border-info col-12 col-md-12 p-1" >
                     <div class='col-12 border-bottom p-0 row' style="clear: both;min-height: 100px">
-                        <div class="isichatColorR text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important;">
+                        <div class="isichatColorR text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important; border-right-color: #95989b  !important;">
                              <img src="/media/website/IsiChatLogo.png" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ user.get_username }}">
                                      {% if issu %}
 
@@ -88,7 +89,7 @@
                     </div>
                     {% for chat in chats %}
                          <div class='col-12 border-bottom p-0 row' style="clear: both;min-height: 100px">
-                        <div class="text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important;">
+                        <div class="text-center col-md-2 col-12 p-1 border-right" style="border-right-style: dashed !important; border-right-color: #95989b  !important;">
                              <img src="{{ chat.user.photo.url}}" class="m-1 m-auto d-block" style="border-radius: 10px" height="40px" width="40px" alt="photo_{{ chat.user.user.username}}">
                                      {% if chat.user.user.is_staff %}
                                        <i class="text-danger fas fa-shield-alt"></i>
@@ -133,17 +134,31 @@
             </div>
         </div>
     </div>
+
+    <!----------------------------------------------- Model Image  ----------------------------------------->
+      <div id="container_modal_image" class="back-Modal">
+        <div class="container-image">
+            <div class="w-100 text-right p-0 pt-3 pr-3 m-0">
+                <span id="close_image" class="font-weight-bold m-0 mx-auto">X</span>
+            </div>
+            <hr>
+            <div id="image" class="m-0 p-0 text-center"></div>
+        </div>
+      </div>
+    <!----------------------------------------------- End Model Image  ------------------------------------->
+
 {% endblock %}
 
  {% block CustomJS %}
+      <script src="{% static 'javascript/showModelImage.js' %}"></script>
      <script>
          $('.alert').hide();
-         /*$(document).ready(function() {
+         $(document).ready(function() {
                 $("#msg").emojioneArea();
                 $(".clickable").on('click', function (evt){
                     $(this).closest('.alert').hide();
                 })
-         });*/
+         });
      </script>
    <script src="{% static 'javascript/plugin.js' %}"></script>
 

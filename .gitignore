@@ -8,6 +8,9 @@
 # Icon must end with two \r
 Icon
 .mp4
+.png
+.jpeg
+.gif
 
 # Thumbnails
 ._*

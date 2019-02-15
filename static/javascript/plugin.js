@@ -26,7 +26,6 @@ Socket.onmessage = function(e) {
     if (dataMessage.us === "True") {
         su = '<i class="text-danger fas fa-shield-alt"></i>';
     }
-    console.log(dataMessage);
 
     if (dataMessage.nbrP == null){
         msgcanva.append(" <div class='col-12 border-bottom p-0 row' style='clear: both;min-height: 100px'>" +
@@ -34,6 +33,7 @@ Socket.onmessage = function(e) {
             "           " + su + ' ' + dataMessage.username + "</div> <div class='d-inline col-9 p-1'> <h6 class='d-inline'>" + dataMessage.message + "</h6></div>" +
             "        </div>");
         updateScroll();
+        showImageInDivModel();
     }else{
         psnC.children().not('#dvNbrP').remove();
         Object.keys(dataMessage.PCon).forEach(function(key){
@@ -62,7 +62,6 @@ Socket.onopen= function(e){
     document.getElementById("fileimg").onchange = function() {
         var formData = new FormData($('form')[0]);
         formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
-        console.log(formData);
         var file = this.files[0];
         if (file.size > 10) {
             $.ajax({
@@ -77,7 +76,7 @@ Socket.onopen= function(e){
                     $('.alert').show();
                 }else {
                      var data = {
-                        'message': '<img src="'+dataImg+'" alt="" width="40%">',
+                        'message': '<span class="model_image"><img src="'+dataImg+'" alt="" width="40%"/></span>',
                         'user': $("#username").val(),
                         'avatar': $("#avatar").val(),
                         'us': $('#us').val()
